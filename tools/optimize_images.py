@@ -60,12 +60,15 @@ TRANSPARENT_BG: set[str] = set()
 # ここに無い画像は長辺 LIB_MAX_EDGE に収めるだけで、比率はそのまま。
 LIB_SIZES: dict[str, tuple[int, int]] = {
     "atelier":       (1000, 1000),   # 「大切にしていること」の写真
-    "gallery-01":    (1000, 1000),   # 流れるギャラリー（6枚）
+    "gallery-01":    (1000, 1000),   # 流れるギャラリー（9枚）
     "gallery-02":    (1000, 1000),
     "gallery-03":    (1000, 1000),
     "gallery-04":    (1000, 1000),
     "gallery-05":    (1000, 1000),
     "gallery-06":    (1000, 1000),
+    "gallery-07":    (1000, 1000),
+    "gallery-08":    (1000, 1000),
+    "gallery-09":    (1000, 1000),
     "work-gift":     (1000, 1000),   # 作品カード（3枚）
     "work-memorial": (1000, 1000),
     "work-daily":    (1000, 1000),

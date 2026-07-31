@@ -112,7 +112,7 @@ git restore .
 | ファイル名 | 使う場所 | 切り抜かれる比率 |
 |---|---|---|
 | `atelier` | 「大切にしていること」の写真 | 正方形 |
-| `gallery-01` 〜 `gallery-06` | 流れるギャラリー | 正方形 |
+| `gallery-01` 〜 `gallery-09` | 流れるギャラリー | 正方形 |
 | `work-gift` / `work-memorial` / `work-daily` | 作品カード3枚 | 正方形 |
 | `maker` | 作り手の写真 | 縦4:5 |
 | `material` | 「素材とお手入れ」の写真 | 正方形 |
@@ -120,6 +120,14 @@ git restore .
 | `_logo-source.png` | ロゴ（先頭の `_` は「一括処理から外す」印） | そのまま |
 
 比率は `tools/optimize_images.py` の `LIB_SIZES` で決めています。`index.html` の `width` / `height` と揃えてあるので、変えるときは両方直してください。
+
+ギャラリーの枚数を増減するときは3か所そろえます。
+
+1. `img-src/lib/` に `gallery-NN` を置く
+2. `tools/optimize_images.py` の `LIB_SIZES` に `"gallery-NN": (1000, 1000)` を足す
+3. `index.html` の `.gallery__track` に `.gallery__item` を足す。**同じ並びを2回**書くこと（切れ目なく流すための複製。2周目は `aria-hidden="true"` と `alt=""` にする）
+
+CSSのアニメーションは枚数に依存しないので、CSSは触らなくて大丈夫です。
 
 ### 実行
 
