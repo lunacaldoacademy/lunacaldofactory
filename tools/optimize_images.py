@@ -22,7 +22,7 @@ import shutil
 import unicodedata
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 # iPhoneのHEICも読めるようにする（入っていなければ黙って諦める）
 try:
@@ -111,6 +111,18 @@ def load_font(size: int, mincho: bool = False) -> ImageFont.FreeTypeFont:
 
 
 # ---------------------------------------------------------------- 共通処理
+
+def open_image(path: Path) -> Image.Image:
+    """画像を開き、写真の「向き」の情報を実際の画素に反映させる。
+
+    スマホやパソコンの写真アプリで画像を回転させると、多くの場合
+    画素はそのままで Exif の Orientation という札だけが書き換わる。
+    写真アプリはその札を見て回して表示するが、そのまま読み込むと
+    札は無視され、回す前の向きで書き出されてしまう。
+    exif_transpose で札のとおりに回してから扱う。
+    """
+    return ImageOps.exif_transpose(Image.open(path))
+
 
 def flatten(img: Image.Image) -> Image.Image:
     """アルファを白背景に合成して RGB 化（JPEG 出力用）。"""
@@ -207,7 +219,7 @@ def export_hero() -> list[dict]:
 
     slides = []
     for i, src in enumerate(sources, start=1):
-        img = crop_cover(flatten(Image.open(src)), HERO_W, HERO_H)
+        img = crop_cover(flatten(open_image(src)), HERO_W, HERO_H)
         stem = f"hero-{i:02d}"
         kb_webp, kb_jpg = save_pair(img, stem)
         slides.append({"stem": stem, "alt": alt_from_filename(src)})
@@ -264,7 +276,7 @@ def export_lib() -> None:
             continue
         if src.suffix.lower() not in PHOTO_EXTS:
             continue
-        src_img = Image.open(src)
+        src_img = open_image(src)
         # 透明背景を保持すべき画像か判定
         keep_transparent = src.stem in TRANSPARENT_BG
         if keep_transparent:
@@ -321,7 +333,7 @@ def export_logo() -> Image.Image | None:
     if not LOGO_SRC.exists():
         print("  [skip] ロゴが見つかりません:", LOGO_SRC)
         return None
-    img = Image.open(LOGO_SRC).convert("RGBA")
+    img = open_image(LOGO_SRC).convert("RGBA")
     img = fit(img, 600)
     img.save(OUT / "logo.png", "PNG", optimize=True)
     print(f"  logo.png: {img.size[0]}x{img.size[1]} "
