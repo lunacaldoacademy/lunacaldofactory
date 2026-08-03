@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://lunacaldofactory.com/">
 <link rel="icon" href="img/favicon.png" sizes="180x180">
 <link rel="apple-touch-icon" href="img/favicon.png">
-<link rel="stylesheet" href="css/style.css?v=155cd02f">
+<link rel="stylesheet" href="css/style.css?v=055a8464">
 <script>
 /* JSが有効な間だけスクロール演出を有効にする。
    万一 main.js が読み込めなかったときは .js を外し、全内容を素のまま表示する。 */
@@ -69,7 +69,8 @@ setTimeout(function () {
         "itemListElement": [
           { "@type": "Service", "name": "名入れのギフト", "serviceType": "レーザー彫刻による名入れ", "description": "木や革のキーホルダー、小さなプレートに、お名前やイニシャルを刻みます。書体・サイズ・レイアウトをご相談しながら決めていきます。" },
           { "@type": "Service", "name": "記念のしるし", "serviceType": "レーザー彫刻による記念品の製作", "description": "節句の名前札、出産や周年のお祝い。日付とお名前を刻んで、その一日を手元に残すかたちにします。" },
-          { "@type": "Service", "name": "お店とくらしのしるし", "serviceType": "レーザー彫刻による表札・看板の製作", "description": "表札、コースター、看板、QRコードのスタンド。毎日そこにあるものを、ひとつずつ手で仕上げています。" }
+          { "@type": "Service", "name": "お店とくらしのしるし", "serviceType": "レーザー彫刻による表札・看板の製作", "description": "表札、コースター、看板、QRコードのスタンド。毎日そこにあるものを、ひとつずつ手で仕上げています。" },
+          { "@type": "Service", "name": "まとまった数のご注文", "serviceType": "レーザー彫刻によるまとまった数の製作", "description": "同じものを数多くというご依頼も承ります。これまでに、お寺のお守りの木札を500枚、高校の部活動のオリジナルグッズとして木のチャームを50個おつくりしました。" }
         ]
       }
     }
@@ -84,6 +85,7 @@ setTimeout(function () {
     { "@type": "Question", "name": "納期はどれくらいかかりますか？", "acceptedAnswer": { "@type": "Answer", "text": "ご相談の内容によって変わります。お渡しの時期が決まっている場合は、はじめにお伝えください。できるかぎり合わせてご相談します。" } },
     { "@type": "Question", "name": "どんなことを相談できますか？", "acceptedAnswer": { "@type": "Answer", "text": "書体・サイズ・レイアウトをご相談しながら決めていきます。刻みたい文字や、お渡しになる相手のことも、よろしければお聞かせください。" } },
     { "@type": "Question", "name": "1点だけでもお願いできますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、1点から承ります。ひとつだけの品をつくることが、いちばん多いご依頼です。" } },
+    { "@type": "Question", "name": "まとまった数もお願いできますか？", "acceptedAnswer": { "@type": "Answer", "text": "承ります。これまでに、お寺のお守りの木札を500枚、高校の部活動のオリジナルグッズとして木のチャームを50個おつくりしました。ご入用の数と、お渡しの時期をお知らせください。" } },
     { "@type": "Question", "name": "価格を知りたいのですが。", "acceptedAnswer": { "@type": "Answer", "text": "大きさや彫る内容によって変わるため、ご相談のときに内容をうかがったうえでご案内しています。Creema・minne では、出品中の品の価格をそのままご覧いただけます。" } },
     { "@type": "Question", "name": "贈り物として送ってもらえますか？", "acceptedAnswer": { "@type": "Answer", "text": "承ります。包みやお届け先のご希望は、ご相談のときにお伝えください。" } },
     { "@type": "Question", "name": "工房で受け取れますか？", "acceptedAnswer": { "@type": "Answer", "text": "カフェルナカルドの1階が工房です。お受け取りをご希望の場合は、日時をご相談ください。" } }
@@ -471,8 +473,45 @@ setTimeout(function () {
 </section>
 
 
-<!-- ===== 5. オーダーの流れ ===== -->
-<section class="section" id="order">
+<!-- ===== 5. まとまった数のご注文 ===== -->
+<section class="section" id="bulk">
+  <div class="wrap wrap--narrow">
+    <div class="section__head section__head--center reveal">
+      <span class="eyebrow">Bulk Orders</span>
+      <h2 class="section__title">まとまった数のご注文も</h2>
+      <p class="section__lead">
+        ひとつだけの品をつくることがいちばん多いのですが、
+        同じものを数多くというご依頼も承ります。
+        文字は印刷ではなく彫っているので、数がまとまっても線がぶれません。
+      </p>
+    </div>
+
+    <ul class="bulk stagger">
+      <li>
+        <span class="bulk__count">500<small>枚</small></span>
+        <div class="bulk__body">
+          <h3>お寺のお守りの木札</h3>
+          <p>同じ文字を、同じ深さで500枚。</p>
+        </div>
+      </li>
+      <li>
+        <span class="bulk__count">50<small>個</small></span>
+        <div class="bulk__body">
+          <h3>高校の部活動のオリジナルグッズ</h3>
+          <p>木のチャームを50個おつくりしました。</p>
+        </div>
+      </li>
+    </ul>
+
+    <p class="flow__note reveal" data-reveal="fade">
+      ※ご入用の数と、お渡しの時期をお知らせください。お受けできるかをお返事します。
+    </p>
+  </div>
+</section>
+
+
+<!-- ===== 6. オーダーの流れ ===== -->
+<section class="section section--raised section--edge" id="order">
   <div class="wrap">
     <div class="section__head section__head--center reveal">
       <span class="eyebrow">How to Order</span>
@@ -523,8 +562,8 @@ setTimeout(function () {
 </section>
 
 
-<!-- ===== 6. 作り手について ===== -->
-<section class="section section--raised section--edge" id="maker">
+<!-- ===== 7. 作り手について ===== -->
+<section class="section" id="maker">
   <div class="wrap wrap--narrow">
     <div class="section__head section__head--center reveal">
       <span class="eyebrow">The Maker</span>
@@ -562,8 +601,8 @@ setTimeout(function () {
 </section>
 
 
-<!-- ===== 7. 素材とお手入れ ===== -->
-<section class="section" id="care">
+<!-- ===== 8. 素材とお手入れ ===== -->
+<section class="section section--raised section--edge" id="care">
   <div class="wrap">
     <div class="section__head section__head--center reveal">
       <span class="eyebrow">Material &amp; Care</span>
@@ -614,8 +653,8 @@ setTimeout(function () {
 </section>
 
 
-<!-- ===== 8. ショップ ===== -->
-<section class="section section--raised section--edge" id="shop">
+<!-- ===== 9. ショップ ===== -->
+<section class="section" id="shop">
   <div class="wrap wrap--narrow">
     <div class="section__head section__head--center reveal">
       <span class="eyebrow">Online Shop</span>
@@ -645,8 +684,8 @@ setTimeout(function () {
 </section>
 
 
-<!-- ===== 9. よくあるご質問 ===== -->
-<section class="section" id="faq">
+<!-- ===== 10. よくあるご質問 ===== -->
+<section class="section section--raised section--edge" id="faq">
   <div class="wrap wrap--narrow">
     <div class="section__head section__head--center reveal">
       <span class="eyebrow">FAQ</span>
@@ -673,6 +712,12 @@ setTimeout(function () {
         </div>
       </details>
       <details>
+        <summary><span class="q">Q</span>まとまった数もお願いできますか？</summary>
+        <div class="faq__answer">
+          <p>承ります。これまでに、お寺のお守りの木札を500枚、高校の部活動のオリジナルグッズとして木のチャームを50個おつくりしました。ご入用の数と、お渡しの時期をお知らせください。</p>
+        </div>
+      </details>
+      <details>
         <summary><span class="q">Q</span>価格を知りたいのですが。</summary>
         <div class="faq__answer">
           <p>大きさや彫る内容によって変わるため、ご相談のときに内容をうかがったうえでご案内しています。Creema・minne では、出品中の品の価格をそのままご覧いただけます。</p>
@@ -695,7 +740,7 @@ setTimeout(function () {
 </section>
 
 
-<!-- ===== 10. ご相談・アクセス ===== -->
+<!-- ===== 11. ご相談・アクセス ===== -->
 <section class="section contact" id="contact">
   <div class="contact__bg" aria-hidden="true">
     <img src="img/texture.jpg" alt="" width="1000" height="667" loading="lazy">

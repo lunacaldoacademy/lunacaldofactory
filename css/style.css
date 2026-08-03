@@ -694,6 +694,50 @@ html:not(.js) .hero__slide:not(.is-current) { display: none; }
 }
 
 /* -------------------------------------------------------------
+   8-2. まとまった数のご注文
+   ------------------------------------------------------------- */
+.bulk {
+  display: grid;
+  gap: var(--s-4);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.bulk > li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 2px;
+  padding: var(--s-5);
+  transition: border-color .4s var(--ease);
+}
+.bulk > li:hover { border-color: var(--maple); }
+/* 数がこの節の主役なので、いちばん大きく置く */
+.bulk__count {
+  flex: none;
+  font-family: var(--font-mincho);
+  font-size: var(--ts-h2);
+  line-height: 1;
+  letter-spacing: .02em;
+  color: var(--maple);
+}
+.bulk__count small {
+  margin-left: .12em;
+  font-size: .4em;
+  letter-spacing: .1em;
+}
+.bulk__body h3 {
+  font-size: var(--ts-small);
+  letter-spacing: .08em;
+  margin-bottom: var(--s-2);
+}
+.bulk__body p {
+  font-size: var(--ts-tiny);
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+/* -------------------------------------------------------------
    9. ギャラリー（自動で流れる）
    ------------------------------------------------------------- */
 .gallery {
