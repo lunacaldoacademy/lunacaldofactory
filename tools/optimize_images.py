@@ -72,9 +72,18 @@ LIB_SIZES: dict[str, tuple[int, int]] = {
     "work-gift":     (1000, 1000),   # 作品カード（3枚）
     "work-memorial": (1000, 1000),
     "work-daily":    (1000, 1000),
+    "bulk-omamori":  (1000, 750),    # まとまった数のご注文（横4:3。数が並んだ様子）
+    "bulk-novelty":  (1000, 750),
     "maker":         (800, 1000),    # 作り手の写真（縦4:5）
     "material":      (1000, 1000),   # 素材とお手入れの写真
     "texture":       (1000, 667),    # ご相談セクションの背景
+}
+
+# 縦写真を横長に切るとき、上を残したいものだけここに書く（0.0=上端 / 0.5=中央）。
+# bulk-omamori は中央だと板の面だけになり、何を撮った写真か分からなくなる。
+# 上を残すと彫刻機の頭が入り、「機械の台いっぱいに並んでいる」と伝わる。
+LIB_ANCHOR: dict[str, float] = {
+    "bulk-omamori": 0.0,
 }
 
 # ブランドカラー（sns-bot/src/factory/brand.py が正本）
@@ -143,8 +152,13 @@ def fit(img: Image.Image, max_edge: int) -> Image.Image:
     return img.resize((round(w * scale), round(h * scale)), Image.LANCZOS)
 
 
-def crop_cover(img: Image.Image, w: int, h: int) -> Image.Image:
-    """中央基準で w:h の比率に切り抜き、w×h にそろえる（object-fit: cover 相当）。"""
+def crop_cover(img: Image.Image, w: int, h: int, anchor: float = 0.5) -> Image.Image:
+    """w:h の比率に切り抜き、w×h にそろえる（object-fit: cover 相当）。
+
+    anchor は縦を切るときにどこを残すか。0.0 が上端、0.5 が中央、1.0 が下端。
+    スマホの縦写真を横長に切ると、真ん中しか残らずに何の写真か分からなく
+    なることがある。そういうときだけ 0 に寄せて上を残す。
+    """
     src_ratio = img.width / img.height
     dst_ratio = w / h
     if src_ratio > dst_ratio:
@@ -153,7 +167,7 @@ def crop_cover(img: Image.Image, w: int, h: int) -> Image.Image:
         img = img.crop((left, 0, left + new_w, img.height))
     elif src_ratio < dst_ratio:
         new_h = round(img.width / dst_ratio)
-        top = (img.height - new_h) // 2
+        top = round((img.height - new_h) * anchor)
         img = img.crop((0, top, img.width, top + new_h))
     return img.resize((w, h), Image.LANCZOS)
 
@@ -288,7 +302,8 @@ def export_lib() -> None:
         size = LIB_SIZES.get(src.stem)
         if size:
             # index.html の width/height と一致させるため決め打ちで切り抜く
-            img = crop_cover(flatten(src_img), *size)
+            img = crop_cover(flatten(src_img), *size,
+                             anchor=LIB_ANCHOR.get(src.stem, 0.5))
         else:
             img = fit(flatten(src_img), LIB_MAX_EDGE)
         kb_webp, kb_jpg = save_pair(img, src.stem)

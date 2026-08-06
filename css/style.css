@@ -699,19 +699,30 @@ html:not(.js) .hero__slide:not(.is-current) { display: none; }
 .bulk {
   display: grid;
   gap: var(--s-4);
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
 }
 .bulk > li {
-  display: flex;
-  align-items: center;
-  gap: var(--s-4);
   background: var(--surface);
   border: 1px solid var(--line-soft);
   border-radius: 2px;
-  padding: var(--s-5);
+  overflow: hidden;             /* 写真の角を器の角に合わせる */
   transition: border-color .4s var(--ease);
 }
 .bulk > li:hover { border-color: var(--maple); }
+/* 写真がまだ無いものは、横いっぱいに寝かせて間の抜けを作らない */
+.bulk--wide { grid-column: 1 / -1; }
+.bulk__thumb { display: block; aspect-ratio: 4 / 3; background: var(--surface-2); }
+.bulk__thumb img {
+  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.bulk__row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-5);
+}
 /* 数がこの節の主役なので、いちばん大きく置く */
 .bulk__count {
   flex: none;
@@ -735,6 +746,9 @@ html:not(.js) .hero__slide:not(.is-current) { display: none; }
   font-size: var(--ts-tiny);
   color: var(--muted);
   line-height: 1.9;
+}
+@media (max-width: 720px) {
+  .bulk { grid-template-columns: 1fr; }
 }
 
 /* -------------------------------------------------------------

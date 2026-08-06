@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://lunacaldofactory.com/">
 <link rel="icon" href="img/favicon.png" sizes="180x180">
 <link rel="apple-touch-icon" href="img/favicon.png">
-<link rel="stylesheet" href="css/style.css?v=055a8464">
+<link rel="stylesheet" href="css/style.css?v=1b6798e3">
 <script>
 /* JSが有効な間だけスクロール演出を有効にする。
    万一 main.js が読み込めなかったときは .js を外し、全内容を素のまま表示する。 */
@@ -488,24 +488,45 @@ setTimeout(function () {
 
     <ul class="bulk stagger">
       <li>
-        <span class="bulk__count">500<small>枚</small></span>
-        <div class="bulk__body">
-          <h3>お寺のお守りの木札</h3>
-          <p>同じ文字を、同じ深さで500枚。</p>
+        <div class="bulk__thumb">
+          <picture>
+            <source srcset="img/bulk-omamori.webp" type="image/webp">
+            <img src="img/bulk-omamori.jpg" alt="レーザー彫刻機の台いっぱいに並んだ、お守りの木札"
+                 width="1000" height="750" loading="lazy">
+          </picture>
+        </div>
+        <div class="bulk__row">
+          <span class="bulk__count">500<small>枚</small></span>
+          <div class="bulk__body">
+            <h3>お寺のお守りの木札</h3>
+            <p>同じ文字を、同じ深さで500枚。</p>
+          </div>
         </div>
       </li>
       <li>
-        <span class="bulk__count">300<small>個</small></span>
-        <div class="bulk__body">
-          <h3>カフェのオリジナルノベルティー</h3>
-          <p>木のキーホルダーを300個。</p>
+        <div class="bulk__thumb">
+          <picture>
+            <source srcset="img/bulk-novelty.webp" type="image/webp">
+            <img src="img/bulk-novelty.jpg" alt="彫り上がって並んだ、ロゴを刻んだ木のキーホルダー"
+                 width="1000" height="750" loading="lazy">
+          </picture>
+        </div>
+        <div class="bulk__row">
+          <span class="bulk__count">300<small>個</small></span>
+          <div class="bulk__body">
+            <h3>カフェのオリジナルノベルティー</h3>
+            <p>木のキーホルダーを300個。</p>
+          </div>
         </div>
       </li>
-      <li>
-        <span class="bulk__count">50<small>個</small></span>
-        <div class="bulk__body">
-          <h3>高校の部活動のオリジナルグッズ</h3>
-          <p>木のチャームを50個おつくりしました。</p>
+      <!-- 写真がまだ無いぶんは、横いっぱいの1行にして間の抜けを作らない -->
+      <li class="bulk--wide">
+        <div class="bulk__row">
+          <span class="bulk__count">50<small>個</small></span>
+          <div class="bulk__body">
+            <h3>高校の部活動のオリジナルグッズ</h3>
+            <p>木のチャームを50個おつくりしました。</p>
+          </div>
         </div>
       </li>
     </ul>
