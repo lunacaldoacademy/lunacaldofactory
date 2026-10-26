@@ -1013,6 +1013,16 @@ html:not(.js) .hero__slide:not(.is-current) { display: none; }
   gap: var(--s-3);
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 }
+/* ボタンを1〜2個だけ中央に並べる行。
+   .contact__actions は枠いっぱいに引き伸ばす格子なので、
+   単独のボタンを真ん中に置きたいときはこちらを使う */
+.actions-center {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  justify-content: center;
+}
+
 .contact__map {
   margin-top: var(--s-6);
   border: 1px solid var(--line);

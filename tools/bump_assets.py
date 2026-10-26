@@ -24,9 +24,17 @@ import sys
 from pathlib import Path
 
 HP = Path(__file__).resolve().parent.parent
-INDEX = HP / "index.html"
+
+# 符号を書き換える HTML。ページを増やしたら、ここに足すこと。
+# 足し忘れると、そのページだけ古い CSS のまま表示される。
+PAGES = [
+    HP / "index.html",
+    HP / "novelty" / "index.html",
+]
 
 # 符号を付ける対象。(HTML内のパス, 実ファイル)
+# 下層ページは "/css/style.css" と先頭に / を付けて書くので、
+# 探すときは先頭の / の有無を問わず拾い、書き戻すときは元の形を保つ。
 TARGETS = [
     ("css/style.css", HP / "css" / "style.css"),
     ("js/main.js", HP / "js" / "main.js"),
@@ -39,42 +47,49 @@ def short_hash(path: Path) -> str:
 
 
 def main() -> None:
-    if not INDEX.exists():
-        sys.exit(f"index.html が見つかりません: {INDEX}")
-
-    html = INDEX.read_text(encoding="utf-8")
-    original = html
-    changed: list[str] = []
-
+    digests: dict[str, str] = {}
     for url, path in TARGETS:
-        if not path.exists():
-            print(f"  [skip] {url} が見つかりません")
-            continue
-
-        digest = short_hash(path)
-        # href="css/style.css" も href="css/style.css?v=旧い符号" も拾う
-        pattern = re.compile(re.escape(url) + r"(\?v=[0-9a-f]+)?")
-
-        found = pattern.search(html)
-        if not found:
-            print(f"  [skip] index.html に {url} の読み込みが見つかりません")
-            continue
-
-        before = found.group(1) or "（符号なし）"
-        html = pattern.sub(f"{url}?v={digest}", html)
-
-        if before == f"?v={digest}":
-            print(f"  {url}: 変更なし（?v={digest}）")
+        if path.exists():
+            digests[url] = short_hash(path)
         else:
-            print(f"  {url}: {before} -> ?v={digest}")
-            changed.append(url)
+            print(f"  [skip] {url} が見つかりません")
 
-    if html == original:
+    updated = 0
+    for page in PAGES:
+        if not page.exists():
+            print(f"  [skip] 見つかりません: {page}")
+            continue
+
+        label = page.relative_to(HP).as_posix()
+        html = page.read_text(encoding="utf-8")
+        original = html
+
+        for url, digest in digests.items():
+            # "css/style.css" も "/css/style.css?v=旧い符号" も拾う
+            pattern = re.compile(r"(/?)" + re.escape(url) + r"(\?v=[0-9a-f]+)?")
+
+            found = pattern.search(html)
+            if not found:
+                print(f"  [skip] {label} に {url} の読み込みが見つかりません")
+                continue
+
+            before = found.group(2) or "（符号なし）"
+            # 先頭の / は元の形のまま残す
+            html = pattern.sub(lambda m: f"{m.group(1)}{url}?v={digest}", html)
+
+            if before == f"?v={digest}":
+                print(f"  {label} / {url}: 変更なし（?v={digest}）")
+            else:
+                print(f"  {label} / {url}: {before} -> ?v={digest}")
+
+        if html != original:
+            page.write_text(html, encoding="utf-8")
+            updated += 1
+
+    if updated:
+        print(f"\n完了 -> {updated} ページを更新しました")
+    else:
         print("\n更新の必要はありませんでした")
-        return
-
-    INDEX.write_text(html, encoding="utf-8")
-    print(f"\n完了 -> index.html を更新しました（{len(changed)}件）")
 
 
 if __name__ == "__main__":
