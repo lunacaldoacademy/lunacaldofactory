@@ -1017,6 +1017,9 @@ html:not(.js) .hero__slide:not(.is-current) { display: none; }
    .contact__actions は枠いっぱいに引き伸ばす格子なので、
    単独のボタンを真ん中に置きたいときはこちらを使う */
 .actions-center {
+  /* 直前の一覧やカードからの間合い。
+     .creed など「一覧のあとに続く塊」と同じ空け方にそろえている */
+  margin-top: clamp(2rem, 5vw, 3rem);
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-3);
