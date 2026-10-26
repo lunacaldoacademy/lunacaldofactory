@@ -4,3 +4,6 @@ Thumbs.db
 *.tmp
 __pycache__/
 *.pyc
+
+# Search Console の鍵。絶対に公開リポジトリに入れないこと
+.secrets/
